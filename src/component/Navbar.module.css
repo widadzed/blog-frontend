@@ -1,0 +1,41 @@
+.navbar {
+    display: flex;
+    justify-content: flex-start; /* Align items to the start (left) */
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .navbarBrand {
+    margin-right: auto;
+  }
+  
+  .navbarLinks {
+    display: flex;
+    margin-left: auto; /* Pushes the links to the far right */
+    margin-right: 3rem;
+    margin-left: 3rem;
+  }
+  
+  .navbarLinks a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+  
+  }
+  
+  .navbarLinks a:hover {
+    text-decoration: underline;
+    color: #979797; /* Change the color to red */
+    font-weight: bold; /* Make the text bold */
+    transition: color 0.3s ease-in-out;
+  }
+  

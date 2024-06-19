@@ -1,0 +1,30 @@
+.form {
+    max-width: 400px;
+        margin-top: 2rem ;
+        margin-left: 36rem;
+        padding: 3rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #060606;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 0.5rem 0.5rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #555;
+  }
+  
