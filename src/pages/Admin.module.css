@@ -1,10 +1,24 @@
-/* AdminDashboard.module.css */
+
 .container {
-    padding: 2rem;
-  }
-  
+  padding: 20px;
+  margin: 35px;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.h1{color: #3498db;}
+.card {
+  flex: 1 1 300px; 
+  margin: 10px;
+  width: 300px;
+  box-sizing: border-box; 
+}
+
   h1 {
-    text-align: center;
+    margin-left: 30rem;
     margin-bottom: 2rem;
     color: #FFFF;
   }
@@ -41,5 +55,8 @@
   
   button:hover {
     background-color: #d32f2f;
+  }
+  .message {
+    color: green; /* Change 'green' to your desired color */
   }
   

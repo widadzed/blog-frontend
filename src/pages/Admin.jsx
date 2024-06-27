@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 import styles from './Admin.module.css';
+import { Card, CardContent, CardMedia, Typography, CardActionArea, Dialog, DialogTitle, DialogContent } from '@mui/material';
+import { IconButton } from '@mui/material';
 
+import DeleteIcon from '@mui/icons-material/Delete';
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
-  const [comments, setComments] = useState([]);
   const [message, setMessage] = useState('');
+  const [selectedPost, setSelectedPost] = useState(null);
   const navigate = useNavigate();
 
   const fetchData = async (endpoint, setter) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/admin`, {
+      const url = `${import.meta.env.VITE_BASE}admin/${endpoint}`;
+      console.log(`Fetching from: ${url}`);
+
+      const response = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +44,10 @@ const AdminDashboard = () => {
 
   const deleteItem = async (endpoint, id, setter) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/admin/${endpoint}/${id}`, {
+      const url = `${import.meta.env.VITE_BASE}admin/${endpoint}/${id}`;
+      console.log(`Deleting from: ${url}`);
+
+      const response = await fetch(url, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +65,6 @@ const AdminDashboard = () => {
         throw new Error(`Failed to delete ${endpoint}`);
       }
 
-      const data = await response.json();
       setter(prevItems => prevItems.filter(item => item._id !== id));
       setMessage(`${endpoint} deleted successfully`);
     } catch (error) {
@@ -67,41 +75,71 @@ const AdminDashboard = () => {
   useEffect(() => {
     fetchData('users', setUsers);
     fetchData('posts', setPosts);
-    fetchData('comments', setComments);
   }, []);
+  const handleCardClick = (post) => {
+    setSelectedPost(post); 
+  };
 
-  return (
-    <div className={styles.container}>
-      <h1>Admin Dashboard</h1>
+  const handleClose = () => {
+    setSelectedPost(null);
+  };
+  const handleDelete = (postId) => {
+    deleteItem('posts', postId, setPosts);
+  };
+  
+   
+    return (
+      <div className={styles.container}>
+      <h1 className={styles.h1}>Admin Dashboard</h1>
       {message && <p>{message}</p>}
 
-      <section>
-        <h2>Users</h2>
-        <ul>
-          {users.map(user => (
-            <li key={user._id}>
-              {user.username}
-              <button onClick={() => deleteItem('users', user._id, setUsers)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <div className={styles.cardContainer}>
+        {posts.map(post => {
+          const user = users.find(user => user._id === post.user._id);
+          return (
+            <Card key={post._id} className={styles.card}>
+              <CardActionArea onClick={() => handleCardClick(post)}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image="/static/images/cards/contemplative-reptile.jpg"
+                  alt="Post Image"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {user ? user.username : 'Unknown User'}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {post.title}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <IconButton
+                aria-label="delete"
+                onClick={() => handleDelete(post._id)}
+                className={styles.deleteButton}
+               
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Card>
+          );
+        })}
+      </div>
 
-      <section>
-        <h2>Posts</h2>
-        <ul>
-          {posts.map(post => (
-            <li key={post._id}>
-              {post.title}
-              <button onClick={() => deleteItem('posts', post._id, setPosts)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-     
+      <Dialog open={!!selectedPost} onClose={handleClose}>
+        {selectedPost && (
+          <>
+            <DialogTitle>{selectedPost.title}</DialogTitle>
+            <DialogContent>
+              <Typography variant="body1">{selectedPost.content}</Typography>
+            </DialogContent>
+          </>
+        )}
+      </Dialog>
     </div>
-  );
+    );
 };
 
 export default AdminDashboard;
+

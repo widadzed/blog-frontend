@@ -11,7 +11,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/auth/login', {
+      const response = await fetch(`${import.meta.env.VITE_BASE}auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const Login = () => {
     <div>
       <Navbar/> 
       <form onSubmit={handleLogin} className={styles.form}>
-        <h2>Login</h2>
+        <h2 className={styles.h2}>Login</h2>
         <input
           type="email"
           placeholder="Email"
@@ -53,7 +53,8 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p style={{ color: 'green', marginLeft:'32rem'}}>{message}</p>}
+
     </div>
   );
 };

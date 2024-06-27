@@ -1,41 +1,46 @@
 :root {
-  --primary-color: #3b49df;
-  --secondary-color: #ffffff;
-  --text-color: #2e2e2e;
-  --background-color: #282828;
-  --border-color: #e0e0e0;
-  --link-color: #3b49df;
-  --link-hover-color: #2a37cc;
+  --primary-color: #3498db;
+  --secondary-color: #FBF9F1;
+  --text-color: #2c3e50;
+  --background-color: #f5f5f5;
+  --border-color: #bdc3c7;
+  --link-color: #2980b9;
+  --link-hover-color: #AEE2FF;
 }
 
 body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  margin: 0;
+  font-family: 'Arial', sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
+  margin: 0;
+  padding: 0;
 }
 
 .container {
   display: flex;
   justify-content: center;
-  padding: 2rem 1rem;
+  padding: 2rem;
+  margin-left: 15rem;
+  margin-top: 5rem;
 }
 
 .content {
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
+  background: var(--secondary-color);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .createPost {
-  background: var(--secondary-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  width: 500px;
-  padding: 1.5rem;
   margin-bottom: 2rem;
-  margin-left: 30rem;
-  margin-top: 5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.createPost h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  margin-left: 360px;
 }
 
 .createPost form {
@@ -48,54 +53,65 @@ body {
   margin-bottom: 1rem;
   padding: 0.75rem;
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
+  width: 800px;
+  margin-left: 30px;
 }
 
 .createPost button {
-  background: var(--primary-color);
-  color: white;
-  border: none;
   padding: 0.75rem;
-  border-radius: 4px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: white;
   font-size: 1rem;
   cursor: pointer;
+  width: 500px;
+  margin-left: 190px;
 }
 
 .createPost button:hover {
-  background: var(--link-hover-color);
+  background-color: var(--link-hover-color);
+}
+
+.headerpost {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-align: center;
+  margin-right: 10px;
+  margin-left: 0px;
+  margin-top: 100px;
 }
 
 .postsList {
   list-style: none;
   padding: 0;
-  margin-left: 38rem;
-  width: 300px;
 }
-h1 {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  margin-left: 42rem;
-}
+
 .postItem {
-  background: var(--secondary-color);
-  margin-bottom: 1rem;
-  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+
+  background: #FBF9F1;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 5px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .postItem h2 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.5rem;
+  margin-top: 0;
   color: var(--primary-color);
+  font-size: 1.5rem;
 }
 
 .postItem p {
-  margin: 0;
-  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.postItem strong {
   color: var(--text-color);
 }

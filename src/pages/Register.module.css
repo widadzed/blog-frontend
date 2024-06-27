@@ -1,13 +1,15 @@
 .form {
     max-width: 400px;
         margin-top: 2rem ;
-        margin-left: 36rem;
+        margin-left: 32rem;
         padding: 3rem;
         border: 1px solid #ddd;
         border-radius: 5px;
-        background-color: #060606;
+        background-color: #FBF9F1;
   }
-  
+  .header2{
+    color: #000000;
+  }
   input {
     width: 100%;
     padding: 0.5rem;

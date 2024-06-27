@@ -12,7 +12,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/auth/register', {
+      const response = await fetch(`${import.meta.env.VITE_BASE}auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const Register = () => {
     <div>
       <Navbar/>
       <form onSubmit={handleRegister} className={styles.form}>
-        <h2>Register</h2>
+        <h2 className={styles.header2}>Register</h2>
         <input
           type="text"
           placeholder="Username"
@@ -60,7 +60,8 @@ const Register = () => {
         />
         <button type="submit">Register</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p style={{ color: 'green' , marginLeft:'32rem' }}>{message}</p>}
+
     </div>
   );
 };
