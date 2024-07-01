@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Home.module.css';
+import { encode } from 'base64-arraybuffer';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -7,11 +8,26 @@ const Home = () => {
   const [newPostBody, setNewPostBody] = useState('');
   const [newPostCategories, setNewPostCategories] = useState('');
   const [newPostTags, setNewPostTags] = useState('');
-  const [message, setMessage] = useState('');
   const [newPostImage, setNewPostImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [message, setMessage] = useState('');
 
+  
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setNewPostImage(file);
+   //preview img
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+    
+  };
+  
 
+ 
+    
   const fetchPosts = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BASE}posts`, {
@@ -20,16 +36,14 @@ const Home = () => {
           'Content-Type': 'application/json',
         },
       });
-      console.log('Response status:', response.status);
-      console.log('API Base URL:', import.meta.env.VITE_BASE);
+    
 
       if (!response.ok) {
         throw new Error('Failed to fetch posts');
       }
 
       const data = await response.json();
-      console.log(data);
-      console.log('Fetched posts:', data);
+    
       setPosts(data);
     } catch (error) {
       console.error('Fetch error:', error.message);
@@ -53,7 +67,7 @@ const Home = () => {
     if (newPostImage) {
       formData.append('file', newPostImage);
     }
-
+  
     try {
       const response = await fetch(`${import.meta.env.VITE_BASE}posts`, {
         method: 'POST',
@@ -62,7 +76,7 @@ const Home = () => {
         },
         body: formData,
       });
-
+  
       const data = await response.json();
       if (response.ok) {
         setMessage('Post created successfully!');
@@ -80,18 +94,15 @@ const Home = () => {
       setMessage('Failed to create post');
     }
   };
+  
+  
+
 
   useEffect(() => {
    
     fetchPosts();
   }, []);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-   
-    setNewPostImage(file);
-    setPreviewImage(URL.createObjectURL(file));
-  };
+  
 
   return (
     <div className={styles.container}>
@@ -124,12 +135,12 @@ const Home = () => {
             value={newPostTags}
             onChange={(e) => setNewPostTags(e.target.value)}
           />
-            <input
+             <input
               type="file"
               name='file'
               onChange={handleImageChange}
             />
-          {previewImage && <img src={previewImage} alt="Preview" className={styles.previewImage} />}
+         {previewImage && <img src={previewImage} alt="Preview" className={styles.previewImage} />}
 
           <button type="submit">Create</button>
         </form>
@@ -143,8 +154,13 @@ const Home = () => {
           <li key={post._id} className={styles.postItem}>
             <h2>{post.title}</h2>
             <p>{post.content}</p>
-            {post.image && <img src={`${import.meta.env.VITE_BASE}${post.image}`} alt={post.title} className={styles.postImage} />}
-            <p>{`${import.meta.env.VITE_BASE}${post.image}`}</p>
+            {post.image && (
+                <img
+                  src={`data:${post.image.contentType};base64,${encode(post.image.data.data)}`}
+                  alt={post.title}
+                  className={styles.postImage}
+                />
+              )}
 
             <p><strong>Categories:</strong> {post.categories.join(', ')}</p>
             <p><strong>Tags:</strong> {post.tags.join(', ')}</p>
@@ -154,10 +170,9 @@ const Home = () => {
     </div>
   </div>
   );
+
 };
-
 export default Home;
-
 
 
 

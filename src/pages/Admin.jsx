@@ -15,7 +15,6 @@ const AdminDashboard = () => {
   const fetchData = async (endpoint, setter) => {
     try {
       const url = `${import.meta.env.VITE_BASE}admin/${endpoint}`;
-      console.log(`Fetching from: ${url}`);
 
       const response = await fetch(url, {
         method: 'GET',
@@ -45,7 +44,7 @@ const AdminDashboard = () => {
   const deleteItem = async (endpoint, id, setter) => {
     try {
       const url = `${import.meta.env.VITE_BASE}admin/${endpoint}/${id}`;
-      console.log(`Deleting from: ${url}`);
+     
 
       const response = await fetch(url, {
         method: 'DELETE',
@@ -99,12 +98,7 @@ const AdminDashboard = () => {
           return (
             <Card key={post._id} className={styles.card}>
               <CardActionArea onClick={() => handleCardClick(post)}>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="/static/images/cards/contemplative-reptile.jpg"
-                  alt="Post Image"
-                />
+                
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
                     {user ? user.username : 'Unknown User'}
